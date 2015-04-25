@@ -5,6 +5,8 @@
     "ionic": "driftyco/ionic-bower#1.0.0-rc.4"
   },
   "dependencies": {
-    "angular-ui-router": "~0.2.14"
+    "angular-ui-router": "~0.2.14",
+    "angularfire": "~1.0.0",
+    "firebase": "~2.2.4"
   }
 }

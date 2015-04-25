@@ -1,1 +1,13 @@
 /* Empty. Add your own CSS if you like */
+
+.center {
+  text-align: center;
+}
+
+.loginButtons {
+  position: absolute;
+}
+
+.loginButton {
+  margin-top: 2em;
+}
