@@ -26,7 +26,7 @@ angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/app/splashScreen');
+  $urlRouterProvider.otherwise('/app/mapView');
 
   $stateProvider
 
