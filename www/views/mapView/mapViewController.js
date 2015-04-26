@@ -8,8 +8,6 @@ angular.module('blip')
   var blips = $firebaseArray(ref);
   $rootScope.blips = blips;
 
-  // $rootScope.stateView = 'app.mapView';
-
   $scope.typing = false;
 
   var lat, long, map;
@@ -27,7 +25,7 @@ angular.module('blip')
       var heatMapData = []
       heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
       heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
-    // }
+    }
   });
 
   function getHeatmap(data) {
