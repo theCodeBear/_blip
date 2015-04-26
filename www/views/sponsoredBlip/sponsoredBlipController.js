@@ -25,7 +25,7 @@ angular.module('blip')
       map: map
     });
 
-    google.maps.event.addListener(map, 'click', function(event) {
+    google.maps.event.addListener(map, 'mousedown', function(event) {
       placeMarker(event.latLng);
     });
   });
