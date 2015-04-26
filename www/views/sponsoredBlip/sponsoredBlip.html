@@ -1,26 +1,19 @@
-<style>
-  .form-row {
-    color: white;
-    text-align: center;
-    border: 2px solid black;
-  }
-  .form-row input {
-    width: 100%;
-    text-align: center;
-    font-size: 1.3em;
-  }
-  .noBottomBorder {
-    border-bottom: none;
-  }
-  #paymentButton {
-    margin-top: 3em;
-  }
-</style>
+
 <ion-view view-title="Buy Sponsored Blips">
   <ion-content>
 
+    <ui-gmap-google-map id='sponsor' center='map.center' zoom='map.zoom' options='options'>
+      <ui-gmap-marker icon='currentIcon' options="marker.options" idkey="marker.id"></ui-gmap-marker>
+    </ui-gmap-google-map>
+
     <form action="" method="POST" ng-submit='stripePayment()' id="payment-form">
       <span class="payment-errors"></span>
+
+      <div class="form-row">
+        <label class='item item-input'>
+          <input type="text" size="80" placeholder='Message'>
+        </label>
+      </div>
 
       <div class="form-row">
         <label class='item item-input'>

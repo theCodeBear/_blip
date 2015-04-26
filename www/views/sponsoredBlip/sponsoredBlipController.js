@@ -2,19 +2,35 @@
 
 angular.module('blip')
 
-.controller('sponsoredBlipCtrl', ['$scope', function($scope) {
+.controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', function($scope, $cordovaGeolocation) {
 
-  // $scope.stripePayment = function(event) {
-  //   var $form = $(this);
+  var lat, long;
+  var posOptions = {timeout: 10000, enableHighAccuracy: true};
+  $scope.currentIcon = 'img/blue_dot.png';
+  $cordovaGeolocation
+  .getCurrentPosition(posOptions)
+  .then(function (position) {
+    lat  = position.coords.latitude;
+    long = position.coords.longitude;
 
-  //   // Disable the submit button to prevent repeated clicks
-  //   $form.find('button').prop('disabled', true);
+    $scope.map = {
+      center: {
+        latitude: lat,
+        longitude: long
+      },
+      zoom: 14
+    }
 
-  //   Stripe.card.createToken($form, stripeResponseHandler);
+    $scope.marker = {
+      id: 1,
+      coords: {
+        latitude: lat,
+        longitude: long
+      },
+      options: { draggable: true }
+    };
+  });
 
-  //   // Prevent the form from submitting with the default action
-  //   return false;
-  // });
-
+  $scope.options = { zoomControl: false, streetViewControl: false, mapTypeControl: false };
 
 }]);

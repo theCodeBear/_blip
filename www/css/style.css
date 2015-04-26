@@ -3,8 +3,12 @@
 	display: block;
 }
 
-.angular-google-map-container {
+#home .angular-google-map-container {
 	height: 700px;
+}
+
+#sponsor .angular-google-map-container {
+	height: 350px;
 }
 
 .fullPage {
@@ -42,4 +46,16 @@
 
 .loginButton {
   margin-top: 2em;
+}
+
+.button-twitter {
+	background: #55acee;
+	color: white;
+	border-color: #2a91bd;
+}
+
+.button-facebook {
+	background: #3b5998;
+	color: white;
+	border-color: #223f71:
 }

@@ -48,7 +48,7 @@ angular.module('blip')
   }
 
   $scope.sendBlip = function(message) {
-    var obj = {message: message, lat: lat, long: long}
+    var obj = {message: message, lat: lat, long: long, sponsor: false}
     blips.$add(obj).then(function(ref) {
       $scope.typing = false;
     });
