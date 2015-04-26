@@ -11,6 +11,7 @@ angular.module('blip')
   $scope.typing = false;
   var lat, long;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
+  $scope.currentIcon = 'img/blue_dot.png';
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
   .then(function (position) {
@@ -26,6 +27,15 @@ angular.module('blip')
       },
       zoom: 14
     }
+
+    $scope.marker = {
+      id: 0,
+      coords: {
+        latitude: lat,
+        longitude: long
+      },
+      options: { draggable: false }
+    };
   })
   .then(function(err) {
     console.log(JSON.stringify(err));
