@@ -7,6 +7,10 @@
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
+        <div class='right' ng-show='stateMapView'>
+          <input id='searchBox' type='text' placeholder='Search'>
+          <button class='button button-icon button-clear ion-ios-search'></button>
+        </div>
       </ion-nav-buttons>
     </ion-nav-bar>
     <ion-nav-view name="menuContent"></ion-nav-view>

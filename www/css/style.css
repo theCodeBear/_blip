@@ -59,3 +59,14 @@
 	color: white;
 	border-color: #223f71:
 }
+
+.right {
+	position: absolute;
+	right: 0;
+}
+
+#searchBox {
+	display: inline;
+	padding-left: 1em;
+	background: transparent;
+}

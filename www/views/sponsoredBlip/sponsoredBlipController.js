@@ -2,11 +2,15 @@
 
 angular.module('blip')
 
-.controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', function($scope, $cordovaGeolocation) {
+.controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$state', function($scope, $cordovaGeolocation, $firebaseArray, $state) {
 
   var lat, long, map, marker;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   var currentIcon = 'img/blue_dot.png';
+
+  var ref = new Firebase('https://blipapp.firebaseio.com/blips');
+  var blips = $firebaseArray(ref);
+
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
   .then(function (position) {
@@ -50,10 +54,17 @@ angular.module('blip')
 
   // when submit payment is called one thing that needs to happen is what is inside this function,
   // that is: if marker hasn't been changed then it just takes the current position.
-  $scope.submitPayment = function() {
-    if (!scope.markerPosition) {
+  $scope.submitPayment = function(message) {
+    if (!$scope.markerPosition) {
       $scope.markerPosition = { latitude: lat, longitude: long };
     }
-  }
+    console.log('marker position', $scope.markerPosition);
+    console.log('message', message);
+    var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true };
+    blips.$add(obj).then(function(ref) {
+      console.log('ref', ref);
+      $state.go('app.mapView');
+    });
+  };
 
 }]);
