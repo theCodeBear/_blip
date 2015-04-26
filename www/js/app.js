@@ -19,13 +19,14 @@ angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
 
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
-      $rootScope.stateMapView = toState.name;
+      $rootScope.stateView = toState.name;
+      console.log(toState.name);
     });
 
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {
-  $urlRouterProvider.otherwise('/app/mapView');
+  $urlRouterProvider.otherwise('/app/splashScreen');
 
   $stateProvider
 

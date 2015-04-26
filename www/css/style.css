@@ -36,6 +36,12 @@
   background: rgba(20, 95, 215,0.0);
 }
 
+#logo {
+	text-align: center;
+	margin-top: 50%;
+	font-size: 4em;
+}
+
 .center {
   text-align: center;
 }

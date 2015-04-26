@@ -7,7 +7,7 @@ angular.module('blip')
   var ref = new Firebase('https://blipapp.firebaseio.com/blips');
   var blips = $firebaseArray(ref);
 
-  $rootScope.stateMapView = 'app.mapView';
+  // $rootScope.stateView = 'app.mapView';
 
   $scope.typing = false;
 
@@ -60,6 +60,7 @@ angular.module('blip')
   }
 
   $scope.sendBlip = function(message) {
+    // var hashTags = message.match(/#\w+/g);
     var obj = {message: message, lat: lat, long: long, sponsor: false, time: Firebase.ServerValue.TIMESTAMP }
     blips.$add(obj).then(function(ref) {
       $scope.typing = false;

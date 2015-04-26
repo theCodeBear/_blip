@@ -58,9 +58,10 @@ angular.module('blip')
     if (!$scope.markerPosition) {
       $scope.markerPosition = { latitude: lat, longitude: long };
     }
+    var hashTag = message.match(/#\w+/g)[0];
     console.log('marker position', $scope.markerPosition);
     console.log('message', message);
-    var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true };
+    var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true, hashTag: hashTag };
     blips.$add(obj).then(function(ref) {
       console.log('ref', ref);
       $state.go('app.mapView');
