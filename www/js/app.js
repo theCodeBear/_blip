@@ -57,6 +57,16 @@ angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
     }
   })
 
+  .state('app.feed', {
+    url: '/feed',
+    views: {
+      'menuContent': {
+        templateUrl: 'views/feed/feed.html',
+        controller: 'feedCtrl'
+      }
+    }
+  })
+
   .state('app.friendFeed', {
     url: "/friendFeed",
     views: {

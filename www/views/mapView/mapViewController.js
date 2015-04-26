@@ -125,7 +125,7 @@ angular.module('blip')
 
   function doubleClick(location) {
     console.log('dblclick', location);
-    $state.go('app.friendFeed');
+    $state.go('app.feed');
   }
 
 }]);
