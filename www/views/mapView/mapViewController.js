@@ -18,13 +18,12 @@ angular.module('blip')
   var downMouse;
 
   ref.on('child_added', function(snapshot) {
-    // var current = new Date().getTime();
-    // console.log(current - 60000);
-    // if (snapshot.val().time < current - 60000) {
-    //   console.log('delete');
-    //   removeBlip(snapshot.key());
-    // } else {
-    //   console.log('no delete');
+    var current = new Date().getTime();
+    if (snapshot.val().time < current - 10800000 && !snapshot.val().sponsor) {
+      console.log('delete');
+      removeBlip(snapshot.key());
+    } else {
+      console.log('no delete');
       var heatMapData = []
       heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
       heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
@@ -35,6 +34,7 @@ angular.module('blip')
     var heatmap = new google.maps.visualization.HeatmapLayer({
       data: data
     });
+    // heatmap.set('radius', 20);
     heatmap.setMap(null);
     heatmap.setMap(map);
   }
