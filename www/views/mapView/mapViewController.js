@@ -7,8 +7,8 @@ angular.module('blip')
   var ref = new Firebase('https://blipapp.firebaseio.com/blips');
   var blips = $firebaseArray(ref);
 
-  $scope.message = 'todd sucks'
   $scope.typing = false;
+
   var lat, long;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   $scope.currentIcon = 'img/blue_dot.png';
@@ -47,10 +47,9 @@ angular.module('blip')
     $scope.typing = true;
   }
 
-  $scope.sendBlip = function() {
-    var obj = {message: $scope.message, lat: lat, long: long}
+  $scope.sendBlip = function(message) {
+    var obj = {message: message, lat: lat, long: long}
     blips.$add(obj).then(function(ref) {
-      console.log(ref.key());
       $scope.typing = false;
     });
   }
