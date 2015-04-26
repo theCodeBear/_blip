@@ -1,8 +1,19 @@
-<ion-view view-title="Main Map View">
+<ion-view view-title="">
   <ion-content class='fullPage'>
     <ui-gmap-google-map center='map.center' zoom='map.zoom' options='options'></ui-gmap-google-map>
   </ion-content>
-  <ion-footer-bar class='footer'>
-    <button class="btn-blip">BL!P</button>
+  <ion-footer-bar class='footer' ng-if='!typing'>
+    <button class="btn-blip" ng-click='blip()'>bl!p</button>
+  </ion-footer-bar>
+  <ion-footer-bar class='bar-stable' ng-if='typing' keyboard-attach>
+    <div class="row">
+      <div class="col-75">
+        <input type="text" ng-model='message' placeholder='Leave a message' style='width: 100%; height: auto; padding: 4px 15px;'>
+      </div>
+      <div class="col-25">
+        <button><i class="icon ion-images"></i></button>
+        <button ng-click='sendBlip()'><i class="icon ion-ios-paperplane"></i></button>
+      </div>
+    </div>
   </ion-footer-bar>
 </ion-view>
