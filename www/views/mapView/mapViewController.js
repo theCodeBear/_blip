@@ -13,13 +13,18 @@ angular.module('blip')
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   var currentIcon = 'img/blue_dot.png';
 
-  ref.on('value', function(snapshot) {
-    console.log('snapshot', snapshot.val());
-    var heatMapData = []
-    for (var key in snapshot.val()) {
-      heatMapData.push({location: new google.maps.LatLng(snapshot.val()[key].lat, snapshot.val()[key].long)})
-    }
-    heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
+  ref.on('child_added', function(snapshot) {
+    // var current = new Date().getTime();
+    // console.log(current - 60000);
+    // if (snapshot.val().time < current - 60000) {
+    //   console.log('delete');
+    //   removeBlip(snapshot.key());
+    // } else {
+    //   console.log('no delete');
+      var heatMapData = []
+      heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
+      heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
+    // }
   });
 
   function getHeatmap(data) {
@@ -28,6 +33,10 @@ angular.module('blip')
     });
     heatmap.setMap(null);
     heatmap.setMap(map);
+  }
+
+  function removeBlip(key) {
+    ref.child(key).remove();
   }
 
   $cordovaGeolocation
@@ -49,7 +58,7 @@ angular.module('blip')
   }
 
   $scope.sendBlip = function(message) {
-    var obj = {message: message, lat: lat, long: long, sponsor: false}
+    var obj = {message: message, lat: lat, long: long, sponsor: false, time: Firebase.ServerValue.TIMESTAMP }
     blips.$add(obj).then(function(ref) {
       $scope.typing = false;
     });
