@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $state, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -16,6 +16,12 @@ angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
       // org.apache.cordova.statusbar required
       StatusBar.styleDefault();
     }
+
+    $rootScope.$on('$stateChangeStart', 
+    function(event, toState, toParams, fromState, fromParams){ 
+      $rootScope.stateMapView = toState.name;
+    });
+
   });
 })
 .config(function($stateProvider, $urlRouterProvider) {

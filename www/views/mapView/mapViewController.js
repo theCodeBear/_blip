@@ -2,10 +2,12 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', function($scope, $cordovaGeolocation, $firebaseArray) {
+.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$rootScope', function($scope, $cordovaGeolocation, $firebaseArray, $rootScope) {
 
   var ref = new Firebase('https://blipapp.firebaseio.com/blips');
   var blips = $firebaseArray(ref);
+
+  $rootScope.stateMapView = 'app.mapView';
 
   $scope.typing = false;
 
