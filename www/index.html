@@ -23,6 +23,14 @@
     <script src='lib/firebase/firebase.js'></script>
     <script src='lib/angularfire/dist/angularfire.min.js'></script>
 
+    <!-- Stripe -->
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script type="text/javascript">
+      // This identifies your website in the createToken call below
+      Stripe.setPublishableKey('pk_test_5UAMTg12KXiNzuAs6tixVBvY');
+      // ...
+    </script>
+
     <!-- your app's js -->
     <script src='lib/angular-ui-router/release/angular-ui-router.min.js'></script>
     <script src="js/app.js"></script>
