@@ -8,10 +8,6 @@
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
-    <link href="css/ionic.app.css" rel="stylesheet">
-    -->
-
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
 
@@ -23,15 +19,7 @@
     <script src='lib/firebase/firebase.js'></script>
     <script src='lib/angularfire/dist/angularfire.min.js'></script>
 
-    <!-- Stripe -->
-    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
-    <script type="text/javascript">
-      // This identifies your website in the createToken call below
-      Stripe.setPublishableKey('pk_test_5UAMTg12KXiNzuAs6tixVBvY');
-      // ...
-    </script>
-
-    <script src="http://maps.googleapis.com/maps/api/js?v=3&sensor=true&language=en&libraries=visualization"></script>
+    <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDUEvNtnnFvkil7Ad1syaYbMC-3CyQeV3c&sensor=false&language=en&libraries=visualization"></script>
     <script src="lib/lodash/lodash.min.js"></script>
 
     <!-- your app's js -->
@@ -43,7 +31,7 @@
     <script src='views/mapView/mapViewController.js'></script>
     <script src='views/socialLogins/socialLoginsController.js'></script>
     <script src='views/sponsoredBlip/sponsoredBlipController.js'></script>
-    
+
   </head>
 
   <body ng-app="blip" ng-cloak>
