@@ -2,27 +2,28 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', function($scope) {
-  $scope.getLocation = function(){
+.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', function($scope, $cordovaGeolocation) {
+  var lat, long;
+  var posOptions = {timeout: 10000, enableHighAccuracy: true};
+  $cordovaGeolocation
+  .getCurrentPosition(posOptions)
+  .then(function (position) {
+    lat  = position.coords.latitude;
+    long = position.coords.longitude;
+    console.log(JSON.stringify(lat));
+    console.log(JSON.stringify(long));
 
-    //Get the users location and update the map properties
-    if(navigator.geolocation){
-	    navigator.geolocation.getCurrentPosition(function(position){
-          $scope.map.center.latitude = position.coords.latitude;
-          $scope.map.center.longitude = position.coords.longitude;
-      	});
-     }else{
-     	alert('Geolocation not supported by this browser.');
-     }
-  };
-
-  $scope.map = {
-    center: {
-      latitude: 45,
-      longitude: -73
-    },
-    zoom: 14
-  }
+    $scope.map = {
+      center: {
+        latitude: lat,
+        longitude: long
+      },
+      zoom: 14
+    }
+  })
+  .then(function(err) {
+    console.log(JSON.stringify(err));
+  });
 
   $scope.options = { zoomControl: false, streetViewControl: false, mapTypeControl: false };
 
