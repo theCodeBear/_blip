@@ -16,17 +16,17 @@ angular.module('blip')
   var currentIcon = 'img/blue_dot.png';
 
   ref.on('child_added', function(snapshot) {
-    // var current = new Date().getTime();
-    // console.log(current - 60000);
-    // if (snapshot.val().time < current - 60000) {
-    //   console.log('delete');
-    //   removeBlip(snapshot.key());
-    // } else {
-    //   console.log('no delete');
+    var current = new Date().getTime();
+    console.log(current - 60000);
+    if (snapshot.val().time < current - 60000 && !snapshot.val().sponsor) {
+      console.log('delete');
+      removeBlip(snapshot.key());
+    } else {
+      console.log('no delete');
       var heatMapData = []
       heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
       heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
-    // }
+    }
   });
 
   function getHeatmap(data) {
@@ -75,7 +75,6 @@ angular.module('blip')
       disableDefaultUI: true
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions)
-    return map;
   }
 
   var watchOptions = {
