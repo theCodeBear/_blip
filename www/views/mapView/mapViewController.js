@@ -2,10 +2,11 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$rootScope', function($scope, $cordovaGeolocation, $firebaseArray, $rootScope) {
+.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$rootScope', '$state', function($scope, $cordovaGeolocation, $firebaseArray, $rootScope, $state) {
 
   var ref = new Firebase('https://blipapp.firebaseio.com/blips');
   var blips = $firebaseArray(ref);
+  $rootScope.blips = blips;
 
   // $rootScope.stateView = 'app.mapView';
 
@@ -14,19 +15,20 @@ angular.module('blip')
   var lat, long, map;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   var currentIcon = 'img/blue_dot.png';
+  var downMouse;
 
   ref.on('child_added', function(snapshot) {
-    var current = new Date().getTime();
-    console.log(current - 60000);
-    if (snapshot.val().time < current - 60000 && !snapshot.val().sponsor) {
-      console.log('delete');
-      removeBlip(snapshot.key());
-    } else {
-      console.log('no delete');
+    // var current = new Date().getTime();
+    // console.log(current - 60000);
+    // if (snapshot.val().time < current - 60000) {
+    //   console.log('delete');
+    //   removeBlip(snapshot.key());
+    // } else {
+    //   console.log('no delete');
       var heatMapData = []
       heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
       heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
-    }
+    // }
   });
 
   function getHeatmap(data) {
@@ -53,6 +55,18 @@ angular.module('blip')
       map: map,
       icon: currentIcon
     });
+
+    // google.maps.event.addListener(map, 'mousedown', function(event) {
+    //   mouseDown(event.latLng);
+    // });
+
+    // google.maps.event.addListener(map, 'mouseup', function(event) {
+    //   mouseUp(event.latLng);
+    // });
+
+    google.maps.event.addListener(map, 'dblclick', function(event) {
+      doubleClick(event.latLng);
+    });
   });
 
   $scope.blip = function() {
@@ -72,9 +86,11 @@ angular.module('blip')
       zoom: 14,
       center: { lat: myLat, lng: myLong},
       mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true
+      disableDefaultUI: true,
+      disableDoubleClickZoom: true
     };
     map = new google.maps.Map(document.getElementById('map'), mapOptions)
+    return map;
   }
 
   var watchOptions = {
@@ -97,5 +113,19 @@ angular.module('blip')
   );
 
   watch.clearWatch();
+
+  // function mouseDown(location) {
+  //   console.log('mousedown', location);
+  //   downMouse = location;
+  // }
+
+  // function mouseUp(location) {
+  //   console.log('mouseup', location);
+  // }
+
+  function doubleClick(location) {
+    console.log('dblclick', location);
+    $state.go('app.friendFeed');
+  }
 
 }]);
