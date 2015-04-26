@@ -1,10 +1,18 @@
-
+<style>
+  ion-content > div {
+    height: 100%;
+  }
+  #sponsorMap {
+    height: 40%;
+  }
+</style>
 <ion-view view-title="Buy Sponsored Blips">
   <ion-content>
 
-    <ui-gmap-google-map id='sponsor' center='map.center' zoom='map.zoom' options='options'>
+    <!-- <ui-gmap-google-map id='sponsor' center='map.center' zoom='map.zoom' options='options'>
       <ui-gmap-marker icon='currentIcon' options="marker.options" idkey="marker.id"></ui-gmap-marker>
-    </ui-gmap-google-map>
+    </ui-gmap-google-map> -->
+    <div id='sponsorMap' class='col col-100' ng-click='placeMarker()'></div>
 
     <form action="" method="POST" ng-submit='stripePayment()' id="payment-form">
       <span class="payment-errors"></span>

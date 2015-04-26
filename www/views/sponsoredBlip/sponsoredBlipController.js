@@ -4,33 +4,56 @@ angular.module('blip')
 
 .controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', function($scope, $cordovaGeolocation) {
 
-  var lat, long;
+  var lat, long, map, marker;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
-  $scope.currentIcon = 'img/blue_dot.png';
+  var currentIcon = 'img/blue_dot.png';
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
   .then(function (position) {
-    lat  = position.coords.latitude;
+    lat = position.coords.latitude;
     long = position.coords.longitude;
+    map = showMap(lat,long);
 
-    $scope.map = {
-      center: {
-        latitude: lat,
-        longitude: long
-      },
-      zoom: 14
-    }
+    var currentPos = new google.maps.Marker({
+      position: { lat: lat, lng: long },
+      map: map,
+      icon: currentIcon
+    });
 
-    $scope.marker = {
-      id: 1,
-      coords: {
-        latitude: lat,
-        longitude: long
-      },
-      options: { draggable: true }
-    };
+    marker = new google.maps.Marker({
+      position: { lat: lat, lng: long },
+      map: map
+    });
+
+    google.maps.event.addListener(map, 'click', function(event) {
+      placeMarker(event.latLng);
+    });
   });
 
-  $scope.options = { zoomControl: false, streetViewControl: false, mapTypeControl: false };
+  function showMap(myLat, myLong) {
+    var mapOptions = {
+      zoom: 14,
+      center: { lat: myLat, lng: myLong},
+      mapTypeId: google.maps.MapTypeId.ROADMAP,
+      disableDefaultUI: true
+    };
+    var map = new google.maps.Map(document.getElementById('sponsorMap'), mapOptions);
+    return map;
+  }
+
+  function placeMarker(location) {
+    marker.setMap(null);
+    marker = new google.maps.Marker({ position: location });
+    marker.setMap(map);
+    $scope.markerPosition = { latitude: location.k, longitude: location.D };
+  };
+
+  // when submit payment is called one thing that needs to happen is what is inside this function,
+  // that is: if marker hasn't been changed then it just takes the current position.
+  $scope.submitPayment = function() {
+    if (!scope.markerPosition) {
+      $scope.markerPosition = { latitude: lat, longitude: long };
+    }
+  }
 
 }]);
