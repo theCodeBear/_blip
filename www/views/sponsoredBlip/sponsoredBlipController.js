@@ -2,14 +2,14 @@
 
 angular.module('blip')
 
-.controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$state', function($scope, $cordovaGeolocation, $firebaseArray, $state) {
+.controller('sponsoredBlipCtrl', ['$scope', '$cordovaGeolocation', '$state', function($scope, $cordovaGeolocation, $state) {
 
   var lat, long, map, marker;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   var currentIcon = 'img/blue_dot.png';
 
-  var ref = new Firebase('https://blipapp.firebaseio.com/blips');
-  var blips = $firebaseArray(ref);
+  // var ref = new Firebase('https://blipapp.firebaseio.com/blips');
+  // var blips = $firebaseArray(ref);
 
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
@@ -62,10 +62,10 @@ angular.module('blip')
     console.log('marker position', $scope.markerPosition);
     console.log('message', message);
     var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true, hashTag: hashTag, time: Firebase.ServerValue.TIMESTAMP };
-    blips.$add(obj).then(function(ref) {
-      console.log('ref', ref);
-      $state.go('app.mapView');
-    });
+    // blips.$add(obj).then(function(ref) {
+    //   console.log('ref', ref);
+    //   $state.go('app.mapView');
+    // });
   };
 
 }]);

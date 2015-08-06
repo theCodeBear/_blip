@@ -3,6 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' https://maps.googleapis.com/ https://maps.gstatic.com/ https://mts0.googleapis.com/ 'unsafe-inline' 'unsafe-eval'"> -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self' *; style-src 'self' 'unsafe-inline' *; script-src 'self' 'unsafe-inline' 'unsafe-eval' *">
+
+
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
@@ -16,8 +20,8 @@
     <script src="cordova.js"></script>
 
     <!-- Firebase and AngularFire -->
-    <script src='lib/firebase/firebase.js'></script>
-    <script src='lib/angularfire/dist/angularfire.min.js'></script>
+    <!-- // <script src='lib/firebase/firebase.js'></script> -->
+    <!-- // <script src='lib/angularfire/dist/angularfire.min.js'></script> -->
 
     <script src="http://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyDUEvNtnnFvkil7Ad1syaYbMC-3CyQeV3c&sensor=false&language=en&libraries=visualization"></script>
     <script src="lib/lodash/lodash.min.js"></script>

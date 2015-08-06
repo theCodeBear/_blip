@@ -2,11 +2,11 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$firebaseArray', '$rootScope', '$state', function($scope, $cordovaGeolocation, $firebaseArray, $rootScope, $state) {
+.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$rootScope', '$state', function($scope, $cordovaGeolocation, $rootScope, $state) {
 
-  var ref = new Firebase('https://blipapp.firebaseio.com/blips');
-  var blips = $firebaseArray(ref);
-  $rootScope.blips = blips;
+  // var ref = new Firebase('https://blipapp.firebaseio.com/blips');
+  // var blips = $firebaseArray(ref);
+  // $rootScope.blips = blips;
 
   $scope.typing = false;
 
@@ -15,18 +15,18 @@ angular.module('blip')
   var currentIcon = 'img/blue_dot.png';
   var downMouse;
 
-  ref.on('child_added', function(snapshot) {
-    var current = new Date().getTime();
-    if (snapshot.val().time < current - 10800000 && !snapshot.val().sponsor) {
-      console.log('delete');
-      removeBlip(snapshot.key());
-    } else {
-      console.log('no delete');
-      var heatMapData = []
-      heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
-      heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
-    }
-  });
+  // ref.on('child_added', function(snapshot) {
+  //   var current = new Date().getTime();
+  //   if (snapshot.val().time < current - 10800000 && !snapshot.val().sponsor) {
+  //     console.log('delete');
+  //     removeBlip(snapshot.key());
+  //   } else {
+  //     console.log('no delete');
+  //     var heatMapData = []
+  //     heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
+  //     heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
+  //   }
+  // });
 
   function getHeatmap(data) {
     var heatmap = new google.maps.visualization.HeatmapLayer({
@@ -38,7 +38,7 @@ angular.module('blip')
   }
 
   function removeBlip(key) {
-    ref.child(key).remove();
+    // ref.child(key).remove();
   }
 
   $cordovaGeolocation
@@ -73,10 +73,10 @@ angular.module('blip')
 
   $scope.sendBlip = function(message) {
     // var hashTags = message.match(/#\w+/g);
-    var obj = {message: message, lat: lat, long: long, sponsor: false, time: Firebase.ServerValue.TIMESTAMP }
-    blips.$add(obj).then(function(ref) {
-      $scope.typing = false;
-    });
+    // var obj = {message: message, lat: lat, long: long, sponsor: false, time: Firebase.ServerValue.TIMESTAMP }
+    // blips.$add(obj).then(function(ref) {
+    //   $scope.typing = false;
+    // });
   };
 
   function showMap(myLat, myLong) {

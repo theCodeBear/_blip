@@ -4,8 +4,8 @@
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
-angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
-.run(function($ionicPlatform, $state, $rootScope) {
+angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
+.run(function($ionicPlatform, $state, $rootScope, $http) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,6 +21,10 @@ angular.module('blip', ['ionic', 'ui.router', 'firebase', 'ngCordova'])
     function(event, toState, toParams, fromState, fromParams){ 
       $rootScope.stateView = toState.name;
       console.log(toState.name);
+    });
+
+    $http.get('http://192.168.1.123:3000/blip').then(function(data) {
+      console.log('response from api', data);
     });
 
   });

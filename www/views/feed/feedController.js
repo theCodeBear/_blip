@@ -4,7 +4,7 @@ angular.module('blip')
 
 .controller('feedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
 
-  $scope.blips = $rootScope.blips;
+  // $scope.blips = $rootScope.blips;
 
   $scope.isSponsor = function(sponsored) {
     if (sponsored) {

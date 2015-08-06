@@ -8,8 +8,6 @@
     "angular-ui-router": "~0.2.14",
     "angular-google-maps": "~2.0.19",
     "lodash": "~3.7.0",
-    "ngCordova": "~0.1.15-alpha",
-    "angularfire": "~1.0.0",
-    "firebase": "~2.2.4"
+    "ngCordova": "~0.1.15-alpha"
   }
 }
