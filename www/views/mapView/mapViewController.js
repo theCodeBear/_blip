@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$rootScope', '$state', function($scope, $cordovaGeolocation, $rootScope, $state) {
+.controller('mapViewCtrl', ['$scope', '$cordovaGeolocation', '$rootScope', '$state', '$http', function($scope, $cordovaGeolocation, $rootScope, $state, $http) {
 
   // var ref = new Firebase('https://blipapp.firebaseio.com/blips');
   // var blips = $firebaseArray(ref);
@@ -10,7 +10,7 @@ angular.module('blip')
 
   $scope.typing = false;
 
-  var lat, long, map;
+  var lat, lon, map;
   var posOptions = {timeout: 10000, enableHighAccuracy: true};
   var currentIcon = 'img/blue_dot.png';
   var downMouse;
@@ -45,11 +45,11 @@ angular.module('blip')
   .getCurrentPosition(posOptions)
   .then(function (position) {
     lat = position.coords.latitude;
-    long = position.coords.longitude;
-    google.maps.event.addDomListener(window, 'load', showMap(lat,long))
+    lon = position.coords.longitude;
+    google.maps.event.addDomListener(window, 'load', showMap(lat,lon))
 
     var currentPos = new google.maps.Marker({
-      position: { lat: lat, lng: long },
+      position: { lat: lat, lng: lon },
       map: map,
       icon: currentIcon
     });
@@ -77,6 +77,10 @@ angular.module('blip')
     // blips.$add(obj).then(function(ref) {
     //   $scope.typing = false;
     // });
+    $http.post('http://192.168.1.123:3000/blip', { message: message, lat: lat, lon: lon })
+    .then(function(response) {
+      console.log(response);
+    });
   };
 
   function showMap(myLat, myLong) {
@@ -106,7 +110,7 @@ angular.module('blip')
     function(position) {
       console.log(position);
       lat  = position.coords.latitude
-      long = position.coords.longitude
+      lon = position.coords.longitude
     }
   );
 
