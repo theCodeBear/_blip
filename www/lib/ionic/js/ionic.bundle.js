@@ -3989,8 +3989,8 @@ function keyboardShow() {
     //console.log("isUnderKeyboard: " + details.isElementUnderKeyboard);
     //console.log("elementBottom: " + details.elementBottom);
 
-    ionic.keyboard.isOpen = true;    +    details.elementTop = Math.round(elementBounds.top);
-    ionic.keyboard.isOpening = false;    +    details.elementBottom = Math.round(elementBounds.bottom);
+    details.elementTop = Math.round(elementBounds.top);
+    details.elementBottom = Math.round(elementBounds.bottom);
 
     details.windowHeight = details.viewportHeight - details.keyboardHeight;
     //console.log("keyboardShow viewportHeight: " + details.viewportHeight +
