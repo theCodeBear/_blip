@@ -15,19 +15,6 @@ angular.module('blip')
   var currentIcon = 'img/blue_dot.png';
   var downMouse;
 
-  // ref.on('child_added', function(snapshot) {
-  //   var current = new Date().getTime();
-  //   if (snapshot.val().time < current - 10800000 && !snapshot.val().sponsor) {
-  //     console.log('delete');
-  //     removeBlip(snapshot.key());
-  //   } else {
-  //     console.log('no delete');
-  //     var heatMapData = []
-  //     heatMapData.push({location: new google.maps.LatLng(snapshot.val().lat, snapshot.val().long)})
-  //     heatMapData ? getHeatmap(heatMapData) : console.log('Oleee');
-  //   }
-  // });
-
   
 
   // function getHeatmap(data) {
@@ -39,9 +26,6 @@ angular.module('blip')
   //   heatmap.setMap(map);
   // }
 
-  function removeBlip(key) {
-    // ref.child(key).remove();
-  }
 
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
@@ -50,12 +34,14 @@ angular.module('blip')
     lon = position.coords.longitude;
 
     map = L.map('map', {
-    center: [lat, lon],
-    zoom: 14, zIndex: 1000
-  });//, {zoom: 12}).locate({watch: true, timeout: 10000, setView: true});
-  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-  }).addTo(map); 
+      center: [lat, lon],
+      zoom: 14,
+      zoomControl: false
+    });
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map); 
 
     // google.maps.event.addDomListener(window, 'load', showMap(lat,lon))
 
@@ -83,11 +69,6 @@ angular.module('blip')
   }
 
   $scope.sendBlip = function(message) {
-    // var hashTags = message.match(/#\w+/g);
-    // var obj = {message: message, lat: lat, long: long, sponsor: false, time: Firebase.ServerValue.TIMESTAMP }
-    // blips.$add(obj).then(function(ref) {
-    //   $scope.typing = false;
-    // });
     $http.post('http://192.168.1.123:3000/blip', { message: message, lat: lat, lon: lon })
     .then(function(response) {
       console.log(response);
