@@ -27,21 +27,46 @@ angular.module('blip')
   // }
 
 
+  var testData = {
+    data: [
+      { lat: 33.686770, lng: -117.879721, count: 1 },
+      { lat: 33.685570, lng: -117.879741, count: 4 }
+    ]
+  };
+
+  var leafletHeatConfig = {
+    radius: 0.0006,// its at 6 for now just to make more visible for testing//0.0002,
+    scaleRadius: true,
+    maxOpacity: 0.8,
+    useLocalExtrema: true,
+    lngField: 'lng',
+    latField: 'lat',
+    valueField: 'count'
+  };
+
+  var heatmapLayer = new HeatmapOverlay(leafletHeatConfig);
+
+  var baseLayer = L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  });
+
   $cordovaGeolocation
   .getCurrentPosition(posOptions)
   .then(function (position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
+    console.log('lat', lat);
+    console.log('lon', lon);
 
     map = L.map('map', {
       center: [lat, lon],
-      zoom: 14,
-      zoomControl: false
+      zoom: 15,
+      zoomControl: false,
+      layers: [baseLayer, heatmapLayer]
     });
 
-    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-    }).addTo(map); 
+    heatmapLayer.setData(testData);
+
 
     // google.maps.event.addDomListener(window, 'load', showMap(lat,lon))
 
