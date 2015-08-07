@@ -28,14 +28,16 @@ angular.module('blip')
   //   }
   // });
 
-  function getHeatmap(data) {
-    var heatmap = new google.maps.visualization.HeatmapLayer({
-      data: data
-    });
-    // heatmap.set('radius', 20);
-    heatmap.setMap(null);
-    heatmap.setMap(map);
-  }
+  
+
+  // function getHeatmap(data) {
+  //   var heatmap = new google.maps.visualization.HeatmapLayer({
+  //     data: data
+  //   });
+  //   // heatmap.set('radius', 20);
+  //   heatmap.setMap(null);
+  //   heatmap.setMap(map);
+  // }
 
   function removeBlip(key) {
     // ref.child(key).remove();
@@ -46,13 +48,22 @@ angular.module('blip')
   .then(function (position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    google.maps.event.addDomListener(window, 'load', showMap(lat,lon))
 
-    var currentPos = new google.maps.Marker({
-      position: { lat: lat, lng: lon },
-      map: map,
-      icon: currentIcon
-    });
+    map = L.map('map', {
+    center: [lat, lon],
+    zoom: 14, zIndex: 1000
+  });//, {zoom: 12}).locate({watch: true, timeout: 10000, setView: true});
+  L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map); 
+
+    // google.maps.event.addDomListener(window, 'load', showMap(lat,lon))
+
+    // var currentPos = new google.maps.Marker({
+    //   position: { lat: lat, lng: lon },
+    //   map: map,
+    //   icon: currentIcon
+    // });
 
     // google.maps.event.addListener(map, 'mousedown', function(event) {
     //   mouseDown(event.latLng);
@@ -62,9 +73,9 @@ angular.module('blip')
     //   mouseUp(event.latLng);
     // });
 
-    google.maps.event.addListener(map, 'dblclick', function(event) {
-      doubleClick(event.latLng);
-    });
+    // google.maps.event.addListener(map, 'dblclick', function(event) {
+    //   doubleClick(event.latLng);
+    // });
   });
 
   $scope.blip = function() {
@@ -83,17 +94,17 @@ angular.module('blip')
     });
   };
 
-  function showMap(myLat, myLong) {
-    var mapOptions = {
-      zoom: 14,
-      center: { lat: myLat, lng: myLong},
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      disableDefaultUI: true,
-      disableDoubleClickZoom: true
-    };
-    map = new google.maps.Map(document.getElementById('map'), mapOptions)
-    return map;
-  }
+  // function showMap(myLat, myLong) {
+  //   var mapOptions = {
+  //     zoom: 14,
+  //     center: { lat: myLat, lng: myLong},
+  //     mapTypeId: google.maps.MapTypeId.ROADMAP,
+  //     disableDefaultUI: true,
+  //     disableDoubleClickZoom: true
+  //   };
+  //   map = new google.maps.Map(document.getElementById('map'), mapOptions)
+  //   return map;
+  // }
 
   var watchOptions = {
     frequency : 1000,
