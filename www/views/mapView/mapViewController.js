@@ -29,8 +29,8 @@ angular.module('blip')
 
   var testData = {
     data: [
-      { lat: 33.686770, lng: -117.879721, count: 1 },
-      { lat: 33.685570, lng: -117.879741, count: 4 }
+      { lat: 33.686770, lon: -117.879721, count: 1 },
+      { lat: 33.685570, lon: -117.879741, count: 4 }
     ]
   };
 
@@ -39,7 +39,7 @@ angular.module('blip')
     scaleRadius: true,
     maxOpacity: 0.8,
     useLocalExtrema: true,
-    lngField: 'lng',
+    lngField: 'lon',
     latField: 'lat',
     valueField: 'count'
   };
@@ -55,8 +55,6 @@ angular.module('blip')
   .then(function (position) {
     lat = position.coords.latitude;
     lon = position.coords.longitude;
-    console.log('lat', lat);
-    console.log('lon', lon);
 
     map = L.map('map', {
       center: [lat, lon],

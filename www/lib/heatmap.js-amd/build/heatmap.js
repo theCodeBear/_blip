@@ -422,11 +422,11 @@ var Canvas2dRenderer = (function Canvas2dRendererClosure() {
         // => [0, 1]
         shadowCtx.globalAlpha = (value-min)/(max-min);
 
-        console.log('tpl', tpl);
-        console.log('rectX', rectX);
-        console.log('rectY', rectY);
-        
-        shadowCtx.drawImage(tpl, rectX, rectY);
+        try {
+          shadowCtx.drawImage(tpl, rectX, rectY);
+        } catch (err) {
+          console.warn('error', JSON.stringify(err));
+        }
 
         // update renderBoundaries
         if (rectX < this._renderBoundaries[0]) {
