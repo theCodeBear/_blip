@@ -38,8 +38,13 @@
 
 #logo {
 	text-align: center;
-	margin-top: 50%;
+	top: 35vh;
 	font-size: 4em;
+	height: 80px;
+}
+
+.map-canvas {
+	height: 100%;
 }
 
 .center {

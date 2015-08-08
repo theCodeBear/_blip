@@ -10,7 +10,7 @@ var del = require('del');
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  javascript: ['./www/js/**/*.js', './www/views/**/*.js', './www/services/**/*.js']
+  javascript: ['./www/app.js', './www/views/**/*.js', './www/services/**/*.js']
 };
 
 gulp.task('default', ['sass', 'javascript']);

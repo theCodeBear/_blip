@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
-.run(function($ionicPlatform, $state, $rootScope, $http, GeolocationService) {
+.run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -27,6 +27,11 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
     // });
 
     GeolocationService.init();
+
+  // waits for gelocation coordinates to be gotten and title to finish
+  // animating before moving into the app
+    EventsService.titleAnimationDone();
+    EventsService.initializedCoordinates();
 
   });
 })

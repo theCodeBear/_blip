@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.factory('GeolocationService', function($cordovaGeolocation, $state) {
+.factory('GeolocationService', function($cordovaGeolocation, $state, $rootScope) {
 
   var _lat, _lon;
 
@@ -20,7 +20,7 @@ angular.module('blip')
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
       _lat = position.coords.latitude;
       _lon = position.coords.longitude;
-      $state.go('app.mapView');
+      $rootScope.$emit('initializedCoordinates');
     });
 
     var watchOptions = {

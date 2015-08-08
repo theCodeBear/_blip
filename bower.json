@@ -9,6 +9,7 @@
     "angular-google-maps": "~2.0.19",
     "lodash": "~3.7.0",
     "ngCordova": "~0.1.15-alpha",
-    "heatmap.js-amd": "*"
+    "heatmap.js-amd": "*",
+    "jquery": "~2.1.4"
   }
 }
