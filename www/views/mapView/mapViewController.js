@@ -7,9 +7,15 @@ angular.module('blip')
   $scope.typing = false;
 
   var map;
-  var currentIcon = 'img/blue_dot.png';
   var downMouse;
   var geoLocate = Coords;
+  var currentIcon = L.icon({
+    iconUrl: 'img/blue_dot.png',
+    iconSize: [20,20]
+  });
+  var mapBound1 = L.latLng(-90,-180);
+  var mapBound2 = L.latLng(90,180);
+  var bounds = L.latLngBounds(mapBound1, mapBound2);
   
 
 /*  function getHeatmap(data) {
@@ -49,9 +55,15 @@ angular.module('blip')
   map = L.map('map', {
     center: [geoLocate.lat, geoLocate.lon],
     zoom: 15,
+    minZoom: 2,
+    maxZoom: 17,
     zoomControl: false,
+    maxBounds: bounds,
+    //maxBoundsViscosity: 1.0,  <-- this is a feature of leaflet 1.0 that makes a hard stop against scrolling outside the map
     layers: [baseLayer, heatmapLayer]
   });
+
+  L.marker([geoLocate.lat, geoLocate.lon]).setIcon(currentIcon).addTo(map);
 
   heatmapLayer.setData(testData);
 
