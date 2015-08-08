@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.controllers' is found in controllers.js
 angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
-.run(function($ionicPlatform, $state, $rootScope, $http) {
+.run(function($ionicPlatform, $state, $rootScope, $http, GeolocationService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,12 +20,13 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
     $rootScope.$on('$stateChangeStart', 
     function(event, toState, toParams, fromState, fromParams){ 
       $rootScope.stateView = toState.name;
-      console.log(toState.name);
     });
 
-    $http.get('http://192.168.1.123:3000/blip').then(function(data) {
-      console.log('response from api', data);
-    });
+    // $http.get('http://192.168.1.123:3000/blip').then(function(data) {
+    //   console.log('response from api', data);
+    // });
+
+    GeolocationService.init();
 
   });
 })
@@ -57,6 +58,11 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
       'menuContent': {
         templateUrl: "views/mapView/mapView.html",
         controller: 'mapViewCtrl'
+      }
+    },
+    resolve: {
+      Coords: function(GeolocationService) {
+        return GeolocationService.getCoords();
       }
     }
   })
@@ -100,44 +106,5 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
       }
     }
   });
-
-  // .state('app.search', {
-  //   url: "/search",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/search.html"
-  //     }
-  //   }
-  // })
-
-  // .state('app.browse', {
-  //   url: "/browse",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/browse.html"
-  //     }
-  //   }
-  // })
-
-  // .state('app.playlists', {
-  //   url: "/playlists",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/playlists.html",
-  //       controller: 'PlaylistsCtrl'
-  //     }
-  //   }
-  // })
-
-  // .state('app.single', {
-  //   url: "/playlists/:playlistId",
-  //   views: {
-  //     'menuContent': {
-  //       templateUrl: "templates/playlist.html",
-  //       controller: 'PlaylistCtrl'
-  //     }
-  //   }
-  // });
-  // if none of the above states are matched, use this as the fallback
 
 });
