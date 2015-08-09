@@ -13,15 +13,15 @@
   <ion-footer-bar class='footer' ng-if='!typing'>
     <button class="btn-blip" ng-click='blip()'>blip</button>
   </ion-footer-bar>
-  <ion-footer-bar class='bar-stable' ng-if='typing'>
+  <ion-footer-bar class='bar-stable' ng-if='blipping'>
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
-        <input id='blipInputBox' type="text" ng-model='msg' placeholder='Leave a message'>
+        <input id='blipInputBox' type="text" ng-model='message' placeholder='Leave a message'>
       </label>
       <button class="button button-small">
         <i class="icon ion-images"></i>
       </button>
-      <button class="button button-small" ng-click='sendBlip(msg)'>
+      <button class="button button-small" ng-click='sendBlip(message)'>
         <i class="icon ion-ios-paperplane"></i>
       </button>
     </div>

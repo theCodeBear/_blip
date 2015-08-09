@@ -4,7 +4,7 @@ angular.module('blip')
 
 .controller('mapViewCtrl', function($scope, $state, Socket, Coords) {
 
-  $scope.typing = false;
+  $scope.blipping = false;
 
   var map;
   var downMouse;
@@ -58,6 +58,28 @@ angular.module('blip')
 
   heatmapLayer.setData(testData);
 
+  $scope.blip = function() {
+    $scope.blipping = true;
+  };
+
+  $scope.sendBlip = function(message) {
+    console.log(message);
+    var count = 5;
+    var hashtags = message.match(/#\w+/g);
+    Socket.emit('user blip',
+      {
+        lat: geoLocate.lat,
+        lon: geoLocate.lon,
+        count: count,
+        hashtags: hashtags,
+        sponsored: false,
+        message: message
+      }
+    );
+    heatmapLayer.addData({lat: geoLocate.lat, lon: geoLocate.lon, count: count});
+    $scope.blipping = false;
+  };
+
 
   function mouseDown(location) {
     console.log('mousedown', location);
@@ -75,6 +97,10 @@ angular.module('blip')
 
   Socket.on('user connected', function() {
     console.log('i am connected');
+  });
+
+  Socket.on('blip added', function(blip) {
+    heatmapLayer.addData({lat: blip.lat, lon: blip.lon, count: blip.count});
   });
 
 });
