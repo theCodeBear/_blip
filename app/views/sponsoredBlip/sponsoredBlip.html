@@ -1,0 +1,48 @@
+<style>
+  ion-content > div {
+    height: 100%;
+  }
+  #sponsorMap {
+    height: 70%;
+  }
+</style>
+<ion-view view-title="Buy Sponsored Blips">
+  <ion-content>
+
+    <div id='sponsorMap' class='col col-100' ng-click='placeMarker()'></div>
+
+    <form ng-submit='submitPayment(message)' id="payment-form">
+      <span class="payment-errors"></span>
+
+      <div class="form-row">
+        <label class='item item-input'>
+          <input type="text" size="80" placeholder='Message' ng-model='message'>
+        </label>
+      </div>
+
+      <!-- <div class="form-row">
+        <label class='item item-input'>
+          <input type="text" size="20" data-stripe="number" placeholder='Card Number'>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class='item item-input'>
+          <input type="text" size="4" data-stripe="cvc" placeholder='CVC'>
+        </label>
+      </div>
+
+      <div class="form-row noBottomBorder">
+        <label class='item item-input'>
+          <input type="text" size="2" data-stripe="exp-month" placeholder='MM'/>
+        </label>
+        <label class='item item-input'>
+          <input type="text" size="4" data-stripe="exp-year" placeholder='YYYY'/>
+        </label>
+      </div> -->
+
+      <button id='paymentButton' type="submit" class='button button-positive col col-100'>Submit Payment</button>
+    </form>
+
+  </ion-content>
+</ion-view>

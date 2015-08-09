@@ -1,0 +1,29 @@
+<style>
+  ion-content > div{
+    height: inherit;
+  }
+  #map {
+    height: inherit;
+  }
+</style>
+<ion-view view-title="">
+  <ion-content class='fullPage'>
+    <div id="map" class='col col-100'></div>
+  </ion-content>
+  <ion-footer-bar class='footer' ng-if='!typing'>
+    <button class="btn-blip" ng-click='blip()'>blip</button>
+  </ion-footer-bar>
+  <ion-footer-bar class='bar-stable' ng-if='typing'>
+    <div class="item item-input-inset">
+      <label class="item-input-wrapper">
+        <input id='blipInputBox' type="text" ng-model='msg' placeholder='Leave a message'>
+      </label>
+      <button class="button button-small">
+        <i class="icon ion-images"></i>
+      </button>
+      <button class="button button-small" ng-click='sendBlip(msg)'>
+        <i class="icon ion-ios-paperplane"></i>
+      </button>
+    </div>
+  </ion-footer-bar>
+</ion-view>
