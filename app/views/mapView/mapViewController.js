@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', function($scope, $state, Coords) {
+.controller('mapViewCtrl', function($scope, $state, Socket, Coords) {
 
   $scope.typing = false;
 
@@ -72,5 +72,9 @@ angular.module('blip')
     console.log('dblclick', location);
     $state.go('app.feed');
   }
+
+  Socket.on('user connected', function() {
+    console.log('i am connected');
+  });
 
 });

@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
+angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
 
 .run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService) {
   $ionicPlatform.ready(function() {
