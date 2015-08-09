@@ -1,10 +1,8 @@
-// Ionic Starter App
+'use strict';
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'starter.controllers' is found in controllers.js
+
 angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
+
 .run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -22,19 +20,16 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova'])
       $rootScope.stateView = toState.name;
     });
 
-    // $http.get('http://192.168.1.123:3000/blip').then(function(data) {
-    //   console.log('response from api', data);
-    // });
-
     GeolocationService.init();
 
-  // waits for gelocation coordinates to be gotten and title to finish
-  // animating before moving into the app
+  // app routes passed splashscreen after these events fire
     EventsService.titleAnimationDone();
     EventsService.initializedCoordinates();
 
   });
 })
+
+
 .config(function($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/app/splashScreen');
 

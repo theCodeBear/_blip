@@ -2,6 +2,6 @@
 
 angular.module('blip')
 
-.controller('friendFeedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+.controller('friendFeedCtrl', function($scope, $rootScope) {
 
-}]);
+});

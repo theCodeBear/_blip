@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', ['$scope', '$state', 'Coords', function($scope, $state, Coords) {
+.controller('mapViewCtrl', function($scope, $state, Coords) {
 
   $scope.typing = false;
 
@@ -73,4 +73,4 @@ angular.module('blip')
     $state.go('app.feed');
   }
 
-}]);
+});

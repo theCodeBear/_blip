@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('socialLoginsCtrl', ['$scope', function($scope) {
+.controller('socialLoginsCtrl', function($scope) {
 
   $scope.facebookLogin = function() {
 
@@ -12,4 +12,4 @@ angular.module('blip')
 
   };
 
-}]);
+});

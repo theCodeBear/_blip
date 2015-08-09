@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('feedCtrl', ['$scope', '$rootScope', function($scope, $rootScope) {
+.controller('feedCtrl', function($scope, $rootScope) {
 
   // $scope.blips = $rootScope.blips;
 
@@ -13,4 +13,4 @@ angular.module('blip')
     return;
   };
 
-}]);
+});

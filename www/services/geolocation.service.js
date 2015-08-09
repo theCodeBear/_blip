@@ -4,17 +4,21 @@ angular.module('blip')
 
 .factory('GeolocationService', function($cordovaGeolocation, $state, $rootScope) {
 
+/* private variables */
   var _lat, _lon;
 
+
+/* the service */
   var service = {
     init: init,
     getCoords: getCoords
   };
-
   return service;
 
 
+/* public service api */
 
+  // initialize geolocation
   function init() {
     var posOptions = {timeout: 10000, enableHighAccuracy: true};
     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
@@ -38,7 +42,7 @@ angular.module('blip')
     watch.clearWatch();
   }
 
-
+  // get user's coordinates, as stored from geolocation
   function getCoords() {
     return { lat: _lat, lon: _lon };
   }
