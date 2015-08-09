@@ -18,14 +18,14 @@ var paths = {
 };
 
 // DEFAULT
-gulp.task('default', ['sass', 'javascript', 'clean', 'copy', 'inject']);
+gulp.task('default', ['javascript', 'inject']);
 
 // WATCH
 gulp.task('watch', ['default'], function() {
   gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.javascript, ['javascript']);
   gulp.watch(paths.all, ['copy']);
-  gulp.watch('paths.javascript', ['jshint']);
+  gulp.watch(paths.javascript, ['jshint']);
 });
 
 // check javascript for syntax errors/warnings

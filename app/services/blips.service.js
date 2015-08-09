@@ -11,7 +11,7 @@ angular.module('blip')
 /* private functions */
   var _store = function(blips) {
     _blips = blips;
-  }
+  };
 
 
 /* the service */
