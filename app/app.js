@@ -3,7 +3,7 @@
 
 angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
 
-.run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService) {
+.run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService, Blips) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -21,10 +21,12 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
     });
 
     GeolocationService.init();
+    Blips.getFromDB();
 
-  // app routes passed splashscreen after these events fire
+  // start listeners for these events. mapView opens once these events fire.
     EventsService.titleAnimationDone();
     EventsService.initializedCoordinates();
+    EventsService.blipsRetrieved();
 
   });
 })

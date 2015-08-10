@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', function($scope, $state, Socket, Coords) {
+.controller('mapViewCtrl', function($scope, $state, Socket, Blips, Coords) {
 
   $scope.blipping = false;
 
@@ -13,17 +13,10 @@ angular.module('blip')
     iconUrl: 'img/blue_dot.png',
     iconSize: [20,20]
   });
-  var mapBound1 = L.latLng(-90,-180);
-  var mapBound2 = L.latLng(90,180);
-  var bounds = L.latLngBounds(mapBound1, mapBound2);
+  var southWest = L.latLng(-90,-180);
+  var northEast = L.latLng(90,180);
+  var bounds = L.latLngBounds(southWest, northEast);  // keeps screen from going off map
 
-
-  var testData = {
-    data: [
-      { lat: 33.686770, lon: -117.879721, count: 1 },
-      { lat: 33.685570, lon: -117.879741, count: 8 }
-    ]
-  };
 
   var leafletHeatConfig = {
     radius: 0.0006,
@@ -56,14 +49,13 @@ angular.module('blip')
   // set the geolocation marker to user's current location
   L.marker([geoLocate.lat, geoLocate.lon]).setIcon(currentIcon).addTo(map);
 
-  heatmapLayer.setData(testData);
+  if (Blips.getForMap().data.length) heatmapLayer.setData(Blips.getForMap());
 
   $scope.blip = function() {
     $scope.blipping = true;
   };
 
   $scope.sendBlip = function(message) {
-    console.log(message);
     var count = 5;
     var hashtags = message.match(/#\w+/g);
     Socket.emit('user blip',

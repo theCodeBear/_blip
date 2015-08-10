@@ -6,7 +6,8 @@ angular.module('blip')
 
 /* private variables */
   var _titleDone = false,
-      _gotCoords = false;
+      _gotCoords = false,
+      _gotBlips = false;
 
 
 /* private functions */
@@ -17,7 +18,8 @@ angular.module('blip')
 /* the service */
   var service = {
     titleAnimationDone: titleAnimationDone,
-    initializedCoordinates: initializedCoordinates
+    initializedCoordinates: initializedCoordinates,
+    blipsRetrieved: blipsRetrieved
   };
   return service;
 
@@ -27,7 +29,7 @@ angular.module('blip')
   // handles when the title is done animating
   function titleAnimationDone() {
     $rootScope.$on('titleAnimationDone', function() {
-      if (_gotCoords) _openApp();
+      if (_gotCoords && _gotBlips) _openApp();
       else _titleDone = true;
     });
   }
@@ -35,8 +37,16 @@ angular.module('blip')
   // handles when user's geolocation has been found on app start up
   function initializedCoordinates() {
     $rootScope.$on('initializedCoordinates', function() {
-      if (_titleDone) _openApp();
+      if (_titleDone&& _gotBlips) _openApp();
       else _gotCoords = true;
+    });
+  }
+
+  // handles when client has retrieved the blips from the API on app start up
+  function blipsRetrieved() {
+    $rootScope.$on('blipsRetrieved', function() {
+      if (_titleDone && _gotCoords) _openApp();
+      else _gotBlips = true;
     });
   }
 
