@@ -8,7 +8,7 @@ angular.module('blip')
 
   $scope.isSponsor = function(sponsored) {
     if (sponsored) {
-      return {'color': 'rgb(0,255,0)', 'background-color': 'rgb(0,0,0)'}
+      return {'color': 'rgb(0,255,0)', 'background-color': 'rgb(0,0,0)'};
     }
     return;
   };

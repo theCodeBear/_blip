@@ -9,11 +9,25 @@
 <ion-view view-title="">
   <ion-content class='fullPage'>
     <div id="map" class='col col-100'></div>
+
+    <div id='blipActionSheet' class='list'>
+      <label class='item'>
+        <textarea rows='3' placeholder='Blip Message'></textarea>
+      </label>
+      <label class='item'>
+        <button class='button-block button-balanced' ng-click='sendBlip()'> blip it</button>
+      </label>
+      <label class='item'>
+        <button class='button button-block' ng-click='tweetBlip()' style='background-color: #46AFEF'> blip & tweet</button>
+      </label>
+    </div>
+
   </ion-content>
-  <ion-footer-bar class='footer' ng-if='!typing'>
+
+  <ion-footer-bar class='footer' ng-if='!blipping'>
     <button class="btn-blip" ng-click='blip()'>blip</button>
   </ion-footer-bar>
-  <ion-footer-bar class='bar-stable' ng-if='blipping'>
+  <!-- <ion-footer-bar class='bar-stable' ng-if='blipping'>
     <div class="item item-input-inset">
       <label class="item-input-wrapper">
         <input id='blipInputBox' type="text" ng-model='message' placeholder='Leave a message'>
@@ -25,5 +39,5 @@
         <i class="icon ion-ios-paperplane"></i>
       </button>
     </div>
-  </ion-footer-bar>
+  </ion-footer-bar> -->
 </ion-view>

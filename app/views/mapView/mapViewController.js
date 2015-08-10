@@ -2,7 +2,7 @@
 
 angular.module('blip')
 
-.controller('mapViewCtrl', function($scope, $state, Socket, Blips, Coords) {
+.controller('mapViewCtrl', function($scope, $state, $ionicActionSheet, Socket, Blips, Coords) {
 
   $scope.blipping = false;
 
@@ -53,6 +53,7 @@ angular.module('blip')
 
   $scope.blip = function() {
     $scope.blipping = true;
+    angular.element('#blipActionSheet').animate({'bottom': '0em'}, 300);
   };
 
   $scope.sendBlip = function(message) {
@@ -70,6 +71,12 @@ angular.module('blip')
     );
     heatmapLayer.addData({lat: geoLocate.lat, lon: geoLocate.lon, count: count});
     $scope.blipping = false;
+    angular.element('#blipActionSheet').animate({'bottom': '-16em'}, 300);
+  };
+
+  $scope.tweetBlip = function() {
+    $scope.blipping = false;
+    angular.element('#blipActionSheet').animate({'bottom': '-16em'}, 300);
   };
 
 

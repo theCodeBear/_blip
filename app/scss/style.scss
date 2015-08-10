@@ -69,3 +69,34 @@
 	padding-left: 1em;
 	background: transparent;
 }
+
+#blipActionSheet {
+	text-align: center;
+	background-color: transparent;
+	position: absolute;
+	width: 100%;
+	bottom: -20em;
+
+	.item {
+		background-color: transparent;
+		border: none;
+
+		textarea {
+			width: 100%;
+		}
+	}
+}
+
+textarea {
+	resize: none;
+}
+
+.platform-android {
+
+	.action-sheet-cancel {
+		display: initial;
+		* {
+			background-color: #fafafa;
+		}
+	}
+}

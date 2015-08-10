@@ -26,6 +26,7 @@ gulp.task('watch', ['default'], function() {
   gulp.watch(paths.javascript, ['javascript']);
   gulp.watch(paths.all, ['copy']);
   gulp.watch(paths.javascript, ['jshint']);
+  gulp.watch(paths.all, ['inject']);
 });
 
 // check javascript for syntax errors/warnings
@@ -36,7 +37,7 @@ gulp.task('jshint', function() {
 });
 
 // convert sass to css and move to www folder
-gulp.task('sass', ['clean'], function() {
+gulp.task('sass', function() {
   return gulp.src(paths.sass)
     .pipe(sass({
       errLogToConsole: true,

@@ -30,7 +30,6 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
 
   // Get the blip stats from the database
     $http.get('http://192.168.1.123:3000/stats').then(function(data) {
-      console.log('stats', data);
       $rootScope.siteStats = data.data.stats;
     });
   // Update stats in app in real time for every blip

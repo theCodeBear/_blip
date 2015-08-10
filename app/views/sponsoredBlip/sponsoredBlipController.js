@@ -26,7 +26,7 @@ angular.module('blip')
     var hashTag = message.match(/#\w+/g)[0];
     console.log('marker position', $scope.markerPosition);
     console.log('message', message);
-    var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true, hashTag: hashTag, time: Firebase.ServerValue.TIMESTAMP };
+    var obj = {message: message, lat: $scope.markerPosition.latitude, long: $scope.markerPosition.longitude, sponsor: true, hashTag: hashTag };
   };
 
 });
