@@ -3,7 +3,7 @@
 
 angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
 
-.run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService, Blips) {
+.run(function($ionicPlatform, $rootScope, $http, GeolocationService, EventsService, Blips, Socket) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -28,6 +28,16 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
     EventsService.initializedCoordinates();
     EventsService.blipsRetrieved();
 
+  // Get the blip stats from the database
+    $http.get('http://192.168.1.123:3000/stats').then(function(data) {
+      console.log('stats', data);
+      $rootScope.siteStats = data.data.stats;
+    });
+  // Update stats in app in real time for every blip
+    Socket.on('increment blip count', function(data) {
+      $rootScope.siteStats.blipCount += data.blips;
+      $rootScope.siteStats.tweetCount += data.tweets;
+    });
   });
 })
 
@@ -105,6 +115,16 @@ angular.module('blip', ['ionic', 'ui.router', 'ngCordova', 'btford.socket-io'])
       'menuContent': {
         templateUrl: "views/sponsoredBlip/sponsoredBlip.html",
         controller: 'sponsoredBlipCtrl'
+      }
+    }
+  })
+
+  .state('app.stats', {
+    url: '/stats',
+    views: {
+      'menuContent': {
+        templateUrl: 'views/stats/stats.html',
+        controller: 'StatsCtrl'
       }
     }
   });
