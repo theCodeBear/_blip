@@ -4,6 +4,13 @@
     "angular": false,
     "window": false,
     "cordova": false,
-    "StatusBar": false
+    "StatusBar": false,
+    "_": false,
+    "console": false,
+    "L": false,
+    "HeatmapOverlay": false,
+    "h337": false,
+    "io": false,
+    "screen": false
   }
 }

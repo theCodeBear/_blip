@@ -8,7 +8,7 @@ var gulp = require('gulp'),
     sh = require('shelljs'),
     copy = require('gulp-copy'),
     jshint = require('gulp-jshint'),
-    clean = require('gulp-clean'),
+    del = require('del'),
     inject = require('gulp-inject');
 
 var paths = {
@@ -18,7 +18,7 @@ var paths = {
 };
 
 // DEFAULT
-gulp.task('default', ['javascript', 'inject']);
+gulp.task('default', ['inject']);
 
 // WATCH
 gulp.task('watch', ['default'], function() {
@@ -36,7 +36,7 @@ gulp.task('jshint', function() {
 });
 
 // convert sass to css and move to www folder
-gulp.task('sass', function() {
+gulp.task('sass', ['clean'], function() {
   return gulp.src(paths.sass)
     .pipe(sass({
       errLogToConsole: true,
@@ -51,15 +51,12 @@ gulp.task('sass', function() {
 });
 
 // empty www folder except for css
-gulp.task('clean', function() {
-  // return gulp.src('www/js/index.js')
-  //   .pipe(clean());
-  return gulp.src(['./www/**/*', '!./www/css', '!./www/css/**/*.css', '!./www/lib', '!./www/lib/**/*'])
-    .pipe(clean());
+gulp.task('clean', ['jshint'], function(cb) {
+  del(['./www/**/*', '!./www/css', '!./www/css/**/*.css', '!./www/lib', '!./www/lib/**/*'], cb);
 });
 
 // copy all contents of app folder to www folder
-gulp.task('copy', ['clean'], function() {
+gulp.task('copy', ['sass'], function() {
   return gulp.src([paths.all, '!./app/scss/**/*.scss'])
     .pipe(copy('./www', { prefix: 1}));
 });
@@ -69,7 +66,7 @@ gulp.task('javascript', function() {
     // .pipe(gulp.dest('./www/js'));
 });
 
-gulp.task('inject', ['copy', 'sass'], function() {
+gulp.task('inject', ['copy'], function() {
   return gulp.src('./www/index.html')
     .pipe(inject(
       gulp.src(['./www/**/*.js', '!./www/lib/**/*.js', './www/css/**/*.css'], {read: false}),
