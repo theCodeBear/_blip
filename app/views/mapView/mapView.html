@@ -10,19 +10,18 @@
   <ion-content class='fullPage'>
     <div id="map" class='col col-100'></div>
 
-    <div id='blipActionSheet' class='list'>
+    <div id='blipActionSheet'>
       <label class='item'>
-        <textarea id='blipMessage' rows='3' ng-model='message' placeholder='Blip Message'></textarea>
+        <textarea id='blipMessage' rows='3' maxlength='{{charLimit}}' ng-maxlength='charLimit' ng-trim='false' ng-model='message' ng-change='calcCharsLeft(message)' placeholder='Blip Message'></textarea>
       </label>
-      <label class='item'>
-        <button class='button button-block button-balanced' ng-click='sendBlip(message)'> blip it</button>
-      </label>
-      <label class='item'>
-        <button class='button button-block' ng-click='tweetBlip()' style='background-color: #46AFEF'> blip & tweet</button>
-      </label>
-      <label class='item'>
-        <button class='button button-block button-stable' ng-click='closeBlip()'> Cancel </button>
-      </label>
+      <div id='characterCount' class='col col-10 col-offset-90'>
+        {{charactersLeft}}
+      </div>
+      <div id='blipButtonRow' class='row'>
+        <button class='blipActionButtons col col-33' style='color: green; border-right: 1px solid white' ng-click='sendBlip($event, message)'><i class='ion-ionic'></i></button>
+        <button class='blipActionButtons col col-33' style='color: #46AFEF;' ng-click='tweetBlip($event, message)'><i class='ion-social-twitter'></i></button>
+        <button id='cancelBlip' class='blipActionButtons col col-33' style='color: red; border-left: 1px solid white' ng-click='cancelBlip($event)'><i class='ion-ios-close-outline'></i></button>
+      </div>
     </div>
 
   </ion-content>

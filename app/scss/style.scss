@@ -72,12 +72,11 @@
 
 #blipActionSheet {
 	text-align: center;
-	background-color: rgba(0,0,0,0.7);
+	background-color: rgba(0,0,0,0.9);
 	position: absolute;
 	width: 100%;
 	bottom: -30em;
 	padding-bottom: 0;
-	box-shadow: 0 0 30px 5px black;
 
 	.item {
 		background-color: transparent;
@@ -88,29 +87,31 @@
 		textarea {
 			width: 100%;
 			background-color: transparent;
-			border: 1px solid white;
-			padding: 5px;
+			padding: 20px;
 			font-size: 1.1em;
 			color: white;
 		}
-
-		button {
-			margin: 0;
-			padding: 0;
-		}
 	}
+}
+
+#characterCount {
+	color: gray;
+}
+
+#blipButtonRow {
+	border-top: 1px solid white;
+}
+
+.blipActionButtons {
+	font-size: 4em;
+	background-color: transparent;
+	border: none;
 }
 
 textarea {
 	resize: none;
 }
 
-.platform-android {
-
-	.action-sheet-cancel {
-		display: initial;
-		* {
-			background-color: #fafafa;
-		}
-	}
+.leaflet-bottom.leaflet-right {
+	z-index: 0;
 }

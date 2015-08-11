@@ -8,6 +8,8 @@ angular.module('blip')
 
   var map;
   var downMouse;
+  $scope.charLimit = 140;
+  $scope.charactersLeft = $scope.charLimit;
   var geoLocate = Coords;
   var currentIcon = L.icon({
     iconUrl: 'img/blue_dot.png',
@@ -51,11 +53,20 @@ angular.module('blip')
 
   if (Blips.getForMap().data.length) heatmapLayer.setData(Blips.getForMap());
 
-  $scope.blip = function() {
+  $scope.calcCharsLeft = function(message) {
+    $scope.charactersLeft = $scope.charLimit - message.length;
+    if ($scope.charactersLeft === 0) {
+      angular.element('#characterCount').css('color', 'red');
+    } else if ($scope.charactersLeft === 1) {
+      angular.element('#characterCount').css('color', 'gray');
+    }
+  };
+
+  $scope.blip = function(event) {
     // $scope.blipping = true;
     angular.element('#btn-blip')
     .animate({'height':'90px', 'width': '90px', 'margin-top': '-=10px'}, 100)
-    .animate({'height': '0px', 'width': '0px', 'margin-top': '+=45px'}, 100,
+    .animate({'height': '0px', 'width': '0px', 'margin-top': '+=45px'}, 150,
       function() {
         angular.element('#btn-blip').css({'display': 'none'});
         angular.element('#blipActionSheet').animate({'bottom': '0em'}, 300);
@@ -66,22 +77,33 @@ angular.module('blip')
     });
   };
 
-  $scope.closeBlip = function() {
+  $scope.cancelBlip = function(event) {
+    $scope.closeBlip(event);
+  };
+
+  $scope.closeBlip = function(event) {
+    if (!event) var event = {currentTarget: angular.element('#cancelBlip')};
     $scope.blipping = false;
-    angular.element('#blipActionSheet').animate({'bottom': '-30em'}, 300,
+    angular.element(event.currentTarget).animate({'font-size': '0em'}, 200,
       function() {
-        angular.element('#btn-blip').css({'display': 'initial'});
-        angular.element('#btn-blip')
-        .animate({'height':'90px', 'width': '90px', 'margin-top': '-=45px'}, 100)
-        .animate({'height': '70px', 'width': '70px', 'margin-top': '+=10px'}, 100);
-        angular.element('#blipMessage').val('');
-        $scope.message = '';
-        angular.element('#map, ion-header-bar').off('click');
+        angular.element('#blipActionSheet').animate({'bottom': '-30em'}, 300,
+          function() {
+            angular.element('#btn-blip').css({'display': 'initial'});
+            angular.element('#btn-blip')
+            .animate({'height':'90px', 'width': '90px', 'margin-top': '-=45px'}, 100)
+            .animate({'height': '70px', 'width': '70px', 'margin-top': '+=10px'}, 100);
+            angular.element('#blipMessage').val('');
+            $scope.message = '';
+            angular.element('#map, ion-header-bar').off('click');
+            angular.element(event.currentTarget).css('font-size', '4em');
+            $scope.charactersLeft = $scope.charLimit;
+          }
+        );
       }
     );
   };
 
-  $scope.sendBlip = function(message) {
+  $scope.sendBlip = function(event, message) {
     var count = 5;
     var hashtags = message.match(/#\w+/g);
     Socket.emit('user blip',
@@ -95,13 +117,14 @@ angular.module('blip')
       }
     );
     heatmapLayer.addData({lat: geoLocate.lat, lon: geoLocate.lon, count: count});
-    $scope.closeBlip();
+    $scope.closeBlip(event);
   };
 
-  $scope.tweetBlip = function() {
+  $scope.tweetBlip = function(event, message) {
     // send tweet
 
-    $scope.closeBlip();
+    // $scope.sendBlip(event, message);
+    $scope.closeBlip(event);
   };
 
 
