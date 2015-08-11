@@ -57,13 +57,12 @@ angular.module('blip')
     $scope.charactersLeft = $scope.charLimit - message.length;
     if ($scope.charactersLeft === 0) {
       angular.element('#characterCount').css('color', 'red');
-    } else if ($scope.charactersLeft === 1) {
+    } else if (angular.element('#characterCount').css('color') === 'rgb(255, 0, 0)' && $scope.charactersLeft > 0) {
       angular.element('#characterCount').css('color', 'gray');
     }
   };
 
   $scope.blip = function(event) {
-    // $scope.blipping = true;
     angular.element('#btn-blip')
     .animate({'height':'90px', 'width': '90px', 'margin-top': '-=10px'}, 100)
     .animate({'height': '0px', 'width': '0px', 'margin-top': '+=45px'}, 150,
@@ -73,7 +72,7 @@ angular.module('blip')
       }
     );
     angular.element('#map, ion-header-bar').on('click', function() {
-      $scope.closeBlip();
+      $scope.closeBlip(null);
     });
   };
 
@@ -82,8 +81,7 @@ angular.module('blip')
   };
 
   $scope.closeBlip = function(event) {
-    if (!event) var event = {currentTarget: angular.element('#cancelBlip')};
-    $scope.blipping = false;
+    if (!event) event = {currentTarget: angular.element('#cancelBlip')};
     angular.element(event.currentTarget).animate({'font-size': '0em'}, 200,
       function() {
         angular.element('#blipActionSheet').animate({'bottom': '-30em'}, 300,
@@ -118,7 +116,33 @@ angular.module('blip')
     );
     heatmapLayer.addData({lat: geoLocate.lat, lon: geoLocate.lon, count: count});
     $scope.closeBlip(event);
+    startWorker();
   };
+
+  var w = null;
+  function startWorker() {
+    if (typeof Worker !== 'undefined') {
+      if (typeof w !== null) {
+        w = new Worker('views/mapView/blipWorker.js');
+      }
+      w.onmessage = function(event) {
+        angular.element('#btn-blip').html(event.data);
+        angular.element('#btn-blip').css('background-color', 'gray');
+        angular.element('#btn-blip').prop('disabled', true);
+        if (event.data === 0) stopWorker();
+      };
+    } else {
+      angular.element('#btn-blip').prop('disabled', true);
+    }
+  }
+
+  function stopWorker() {
+    w.terminate();
+    w = null;
+    angular.element('#btn-blip').prop('disabled', false);
+    angular.element('#btn-blip').html('blip');
+    angular.element('#btn-blip').css('background-color', '#7FBB00');
+  }
 
   $scope.tweetBlip = function(event, message) {
     // send tweet
