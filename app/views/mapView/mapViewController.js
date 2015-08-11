@@ -52,8 +52,29 @@ angular.module('blip')
   if (Blips.getForMap().data.length) heatmapLayer.setData(Blips.getForMap());
 
   $scope.blip = function() {
-    $scope.blipping = true;
-    angular.element('#blipActionSheet').animate({'bottom': '0em'}, 300);
+    // $scope.blipping = true;
+    angular.element('#btn-blip')
+    .animate({'height':'90px', 'width': '90px', 'margin-top': '-=10px'}, 100)
+    .animate({'height': '0px', 'width': '0px', 'margin-top': '+=45px'}, 100,
+      function() {
+        angular.element('#btn-blip').css({'display': 'none'});
+        angular.element('#blipActionSheet').animate({'bottom': '0em'}, 300);
+      }
+    );
+  };
+
+  $scope.closeBlip = function() {
+    $scope.blipping = false;
+    angular.element('#blipActionSheet').animate({'bottom': '-30em'}, 300,
+      function() {
+        angular.element('#btn-blip').css({'display': 'initial'});
+        angular.element('#btn-blip')
+        .animate({'height':'90px', 'width': '90px', 'margin-top': '-=45px'}, 100)
+        .animate({'height': '70px', 'width': '70px', 'margin-top': '+=10px'}, 100)
+        angular.element('#blipMessage').val('');
+        $scope.message = '';
+      }
+    );
   };
 
   $scope.sendBlip = function(message) {
@@ -70,13 +91,13 @@ angular.module('blip')
       }
     );
     heatmapLayer.addData({lat: geoLocate.lat, lon: geoLocate.lon, count: count});
-    $scope.blipping = false;
-    angular.element('#blipActionSheet').animate({'bottom': '-16em'}, 300);
+    $scope.closeBlip();
   };
 
   $scope.tweetBlip = function() {
-    $scope.blipping = false;
-    angular.element('#blipActionSheet').animate({'bottom': '-16em'}, 300);
+    // send tweet
+
+    $scope.closeBlip();
   };
 
 

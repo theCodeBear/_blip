@@ -7,7 +7,7 @@
   padding-bottom:44px !important;
 }
 
-.btn-blip {
+#btn-blip {
 	color: #fff9ea;
 	font-weight: bolder;
 	background: #7fbb00;
@@ -72,17 +72,31 @@
 
 #blipActionSheet {
 	text-align: center;
-	background-color: transparent;
+	background-color: rgba(0,0,0,0.7);
 	position: absolute;
 	width: 100%;
-	bottom: -20em;
+	bottom: -30em;
+	padding-bottom: 0;
+	box-shadow: 0 0 30px 5px black;
 
 	.item {
 		background-color: transparent;
 		border: none;
+		margin: 0;
+		padding: 0;
 
 		textarea {
 			width: 100%;
+			background-color: transparent;
+			border: 1px solid white;
+			padding: 5px;
+			font-size: 1.1em;
+			color: white;
+		}
+
+		button {
+			margin: 0;
+			padding: 0;
 		}
 	}
 }
