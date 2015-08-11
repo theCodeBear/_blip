@@ -61,6 +61,9 @@ angular.module('blip')
         angular.element('#blipActionSheet').animate({'bottom': '0em'}, 300);
       }
     );
+    angular.element('#map, ion-header-bar').on('click', function() {
+      $scope.closeBlip();
+    });
   };
 
   $scope.closeBlip = function() {
@@ -70,9 +73,10 @@ angular.module('blip')
         angular.element('#btn-blip').css({'display': 'initial'});
         angular.element('#btn-blip')
         .animate({'height':'90px', 'width': '90px', 'margin-top': '-=45px'}, 100)
-        .animate({'height': '70px', 'width': '70px', 'margin-top': '+=10px'}, 100)
+        .animate({'height': '70px', 'width': '70px', 'margin-top': '+=10px'}, 100);
         angular.element('#blipMessage').val('');
         $scope.message = '';
+        angular.element('#map, ion-header-bar').off('click');
       }
     );
   };
