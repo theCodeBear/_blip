@@ -1,6 +1,6 @@
 'use strict';
 
-var i = 120;
+var i = 61;
 
 function timedCount() {
   i -= 1;

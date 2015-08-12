@@ -7,16 +7,37 @@
   padding-bottom:44px !important;
 }
 
+#menu-content {
+	background-color: black;
+}
+
+ion-item.menuItem {
+	border: none;
+
+	a.item-content {
+		background-color: black;
+		color: white;
+		padding: 25px 49px 25px 25px;
+		font-size: 1.6em;
+		font-weight: 200;
+
+		&:active {
+			background-color: #7FBB00;
+		}
+	}
+}
+
 #btn-blip {
-	color: #fff9ea;
-	font-weight: bolder;
+	color: white;
+	font-weight: 300;
+	font-size: 1.6em;
 	background: #7fbb00;
 	border: none;
 	border-radius: 50%;
 	height: 70px;
 	width: 70px;
 	margin: -85px auto;
-	box-shadow: 0px 0px 5px rgba(0,0,0,.7);
+	box-shadow: 1px 3px 5px rgba(0,0,0,.7);
 }
 
 .footer {
